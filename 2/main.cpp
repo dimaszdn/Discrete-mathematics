@@ -1,52 +1,33 @@
 #include <iostream>
-#include<fstream>
-#include<vector>
 
-double resultingFormula(int n)
+double a_n(int n) //полученная формула
 {
-    double res =  (pow(-5, n) / 7.0f) + ((6  * pow(2, n)) / 7.0f);
+    double res =  (pow(-5, n)  + (6 * pow(2, n))) / 7.0;
     return res;
 }
 
-double a_(int n)
+double recurrenceRelation(int n) //само рекуррентное соотношение
 {
-    static std::vector<double> values = {1, 1};
-    double numb1, numb2, res;
+    double a = 1;
+    double b = 1;
+    double result = 0;
 
-    if (n == 0 || n == 1)
-        return 1;
+    for (int i = 2; i <= n; i++)
+    {
+        result = 10 * b - 3 * a;
+        b = a;
+        a = result;
+    }
 
-    //определяем numb1
-    if (values.size() > n - 1)
-        numb1 = values[n - 1];
-    else
-        numb1 = a_(n - 1);
-
-    //определяем numb2
-    if (values.size() > n - 2)
-        numb2 = values[n - 2];
-    else
-        numb2 = a_(n - 2);
-
-
-    res =
-    values.push_back(res);
-    return res;
+    return result;
 }
 
 int main()
 {
-    /*std::ofstream fout("Res.txt");
-    double result = recurrence(100);
-    std::cout.setf(std::ios_base::fixed); //задаёт формат вывода
-    std::cout << "a_100 = " << result << "\n";
-
-    for (int i = 0; i <= 100; ++i)
-    {
-        std::cout << i << ") " << recurrence(i + 2) + 3 * recurrence(i + 1) - 10 * recurrence(i) << "\n";
-    }*/
-
-    std::cout << a_(3);
+    double firstRes = recurrenceRelation(100);
+    double secondRes = a_n(100);
+    std::cout << firstRes << "\n\n";
+    std::cout << secondRes << "\n\n";
 
     return 0;
 }
