@@ -1,3 +1,0 @@
-C:/Users/dimas/OneDrive/Рабочий стол/Лаба по дискретке/3/cmake-build-debug/CMakeFiles/3.dir
-C:/Users/dimas/OneDrive/Рабочий стол/Лаба по дискретке/3/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/dimas/OneDrive/Рабочий стол/Лаба по дискретке/3/cmake-build-debug/CMakeFiles/rebuild_cache.dir
