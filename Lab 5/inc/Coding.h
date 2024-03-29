@@ -91,7 +91,24 @@ void getGeneratingMatrix()
 }
 
 //----------------------------------------------------
-//Для пункта 2в
+void characteristicsOfCode()
+{
+    std::ofstream fout("files/characteristics.txt");
+
+    int q_i;
+    if (d % 2 != 0)
+        q_i = (d - 1) / 2;
+    else
+        q_i = d / 2 - 1;
+
+    int q_o = d - 1;
+
+    int countVec = pow(2, n - m) - 1;
+    fout << "Количество исправляемых ошибок: " << q_i << "\n"; //задание 2 пункт а
+    fout << "Количество различных векторов ошибок: " << countVec << "\n"; //задание 2 пункт б
+    fout << "Количество обнаруживаемых ошибок: " << q_o << "\n"; //задание 3 пункт а
+}
+
 std::string invertBit(std::string codeWord, int pos)
 {
     if (codeWord[pos] == '0')
