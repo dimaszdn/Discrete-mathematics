@@ -7,5 +7,5 @@ set(CMAKE_CXX_STANDARD 17)
 add_executable(Lab_6 main.cpp
         inc/UserInput.h
         inc/Edge.h
-        inc/Matrix.h
-        inc/Graph.h)
+        inc/Graph.h
+        inc/Dijkstra.h)

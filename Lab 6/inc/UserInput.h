@@ -7,7 +7,7 @@
 
 std::vector<Edge> getUserInputFromConsole()
 {
-    std::cout << "Enter a list of edges:" << "\n";
+    std::cout << "¬ведите список рЄбер (начало, конец, вес): " << "\n";
     std::vector<Edge> edges;
     int a, b, weight;
     while (true)
