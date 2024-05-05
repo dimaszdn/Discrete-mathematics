@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(Lab_8 main.cpp
         inc/Graph.h
-        inc/UserInput.h)
+        inc/UserInput.h
+        inc/RandomValues.h)
 
 file(COPY files DESTINATION /)
