@@ -11,7 +11,7 @@ int main()
         graph.dijkstra(52);
         graph.bellmanFord(52);
         std::cout << "\n\n";
-        std::cout << "Dijkstra iterations: " << std::fixed << graph.getItDijkstra() << "\n";
+        std::cout << "Dijkstra iterations: " << graph.getItDijkstra() << "\n";
         std::cout << "Dijkstra complexity: " << dijkstraComplexity(N, graph.countEdges()) << "\n\n";
         std::cout << "Bellman-Ford iterations: " << graph.getItBellmanFord() << "\n";
         std::cout << "Bellman-Ford complexity: " << bellmanFordComplexity(N) << "\n\n";
