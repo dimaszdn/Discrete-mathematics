@@ -1,9 +1,9 @@
 #pragma once
 
-#include<vector>
-#include<string>
-#include<fstream>
-#include<iomanip>
+#include <vector>
+#include <string>
+#include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <queue>
 
@@ -24,14 +24,14 @@ private:
     std::vector<std::vector<int>> adjMatrix{};
     std::vector<int> degrees{};
     long long itDijkstra{};
-    long long itFordBellman{};
+    long long itBellmanFord{};
 
 public:
     explicit Graph(size_t countNodes) : n(countNodes),
                                 adjMatrix(countNodes, std::vector<int>(countNodes)),
                                 degrees(countNodes, 0),
                                 itDijkstra(0),
-                                itFordBellman(0)
+                                itBellmanFord(0)
     {}
 
     void fillRandom()
@@ -130,6 +130,7 @@ public:
         pq.push(std::make_pair(0, start));
 
         while (!pq.empty()) {
+            itDijkstra++;
             int current = pq.top().second;
             pq.pop();
 
@@ -149,12 +150,11 @@ public:
                 itDijkstra++;
             }
         }
-        std::cout << "[The distances are calculated!]" << "\n";
         fout << "For node: " << start << "\n";
         for (int i = 0; i < dist.size(); ++i)
             fout << i << ": " << dist[i] << "\n";
-        std::cout << "[The output to the file is completed!]" << "\n";
         fout.close();
+        std::cout << "[Dijkstra: completed!]" << "\n";
     }
 
     void bellmanFord(int start)
@@ -165,54 +165,57 @@ public:
         dist[start] = 0;
         for (int i = 0; i < n - 1; i++)
         {
+            bool updated = false;
+            itBellmanFord++;
             for (int u = 0; u < n; u++)
             {
+                itBellmanFord++;
                 for (int v = 0; v < n; v++)
                 {
+                    itBellmanFord++;
                     if (adjMatrix[u][v])
                     {
                         if (dist[u] != INT_MAX && dist[v] > dist[u] + 1)
+                        {
                             dist[v] = dist[u] + 1;
+                            updated = true;
+                        }
                     }
                 }
             }
+            if (!updated)
+                break;
         }
-        std::cout << "[The distances are calculated!]" << "\n";
         fout << "For node: " << start << "\n";
         for (int i = 0; i < dist.size(); ++i)
             fout << i << ": " << dist[i] << "\n";
-        std::cout << "[The output to the file is completed!]" << "\n";
         fout.close();
+        std::cout << "[Bellman-Ford: completed!]" << "\n";
     }
 
-    long long getItDijkstra()
+    [[nodiscard]] long long getItDijkstra() const
     {
         return itDijkstra;
     }
 
-public:
-    void outputAdjMatrixToConsole()
+    [[nodiscard]] long long getItBellmanFord() const
     {
-        for (int i = 0; i < n; ++i)
-        {
-            for (int j = 0; j < n; ++j)
-                std::cout << std::right << std::setw(5) << adjMatrix[i][j];
-            std::cout << "\n";
-        }
+        return itBellmanFord;
     }
 
-    void outputToFileAdjMatrix()
+    int countEdges()
     {
-        std::string path = "files/graph" + std::to_string(n) + ".txt";
-        std::ofstream fout(path);
+        int count = 0;
         for (int i = 0; i < n; ++i)
         {
-            for (int j = 0; j < n; ++j)
+            for (int j = i + 1; j < n; ++j)
             {
-                fout << adjMatrix[i][j] << " ";
+                if (adjMatrix[i][j])
+                    count++;
             }
-            fout << "\n";
         }
+        count *= 2;
+        return count;
     }
 
     int getMinDegree()
@@ -235,12 +238,15 @@ private:
         int degreeU = degrees[u];
         int degreeV = degrees[v];
 
+        //если петля, то не можем добавить ребро
         if (u == v)
             return false;
 
+        //если степень выходит за рамки [minDegree, maxDegree], то не можем добавить ребро
         if (degreeU >= randDegree || degreeV >= maxDegree)
             return false;
 
+        //кратные рёбра не можем добавлять
         if (adjMatrix[u][v])
             return false;
 

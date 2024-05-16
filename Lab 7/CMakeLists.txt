@@ -7,4 +7,5 @@ set(CMAKE_CXX_STANDARD 17)
 add_executable(Lab_7 main.cpp
         inc/RandomValues.h
         inc/Graph.h
-        inc/Parameters.h)
+        inc/Parameters.h
+        inc/Complexity.h)
